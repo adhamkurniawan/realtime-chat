@@ -1,0 +1,35 @@
+<ion-view title="{{ RoomCtrl.current_room }}" ng-controller="RoomCtrl">
+  <header class="bar bar-header bar-positive">
+    <h1 class="title">{{ RoomCtrl.current_room }}</h1>
+    <button class="button button-assertive" ng-click="leaveRoom()">Leave</button>
+  </header>
+
+  <ion-content class="has-header padding">
+    <div class="list" ng-if="RoomCtrl.messages.length > 0">
+      <li class="item item-text-wrap no-border {{ isNotCurrentUser(msg.user) }}" ng-repeat="msg in RoomCtrl.messages">
+        <div class="msg">
+          <div class="details padding">
+            <p>
+              <div class="user">{{ msg.user }}</div>
+              <div class="message">{{ msg.txt }}</div>
+            </p>
+            <small>{{ humanize(msg.time) }}</small>
+          </div>
+        </div>
+      </li>
+    </div>
+
+    <div class="card" ng-if="!RoomCtrl.messages.length">
+      <div class="item item-text-wrap">
+        No message yet.
+      </div>
+    </div>
+  </ion-content>
+
+  <footer class="bar bar-footer bar-positive item-input-inset">
+    <label class="item-input-wrapper">
+      <input type="text" id="message" name="message" ng-model="RoomCtrl.message" placeholder="Type Message">
+    </label>
+    <a ng-click="sendTextMessage()" class="button button-icon icon ion-android-send"></a>
+  </footer>
+</ion-view>
